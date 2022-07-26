@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { urlFor } from "../lib/client";
+import { bannerData } from "../types/types";
 
 interface HeroBannerProps {
-  heroBanner: any;
+  heroBanner: bannerData;
 }
 
 const HeroBanner = ({ heroBanner }: HeroBannerProps) => {
@@ -14,7 +15,7 @@ const HeroBanner = ({ heroBanner }: HeroBannerProps) => {
         <h1>{heroBanner.largeText1}</h1>
         <img
           src={String(urlFor(heroBanner.image))}
-          alt={heroBanner.name}
+          alt={heroBanner.product}
           className="hero-banner-image"
         />
         <div>

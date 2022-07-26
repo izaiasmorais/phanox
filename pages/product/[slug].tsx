@@ -8,11 +8,14 @@ import {
 } from "react-icons/ai";
 import { Product } from "../../components";
 import { useState } from "react";
+import { ProductsProps } from "../../types/types";
 
-// @ts-ignore
-const ProductDetails = ({ product, products }) => {
-  console.log(product);
-  // console.log(products);
+interface ProductDetailsProps {
+  product: ProductsProps;
+  products: ProductsProps[];
+}
+
+const ProductDetails = ({ product, products }: ProductDetailsProps) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
 
@@ -27,7 +30,6 @@ const ProductDetails = ({ product, products }) => {
             />
           </div>
           <div className="small-images-container">
-            {/* @ts-ignore */}
             {image?.map((item, i) => {
               return (
                 <img
@@ -85,7 +87,6 @@ const ProductDetails = ({ product, products }) => {
         <h2>You may also like</h2>
         <div className="marquee">
           <div className="maylike-products-container track">
-            {/* @ts-ignore  */}
             {products.map((item) => {
               return <Product key={item._id} product={item} />;
             })}
@@ -104,9 +105,8 @@ export const getStaticPaths = async () => {
   }
   `;
 
-  const products = await client.fetch(query);
+  const products = await client.fetch<ProductsProps[]>(query);
 
-  // @ts-ignore
   const paths = products.map((product) => ({
     params: {
       slug: product.slug.current,
@@ -126,8 +126,6 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   const product = await client.fetch(query);
   const products = await client.fetch(productsQuery);
-
-  console.log(product);
 
   return {
     props: { products, product },

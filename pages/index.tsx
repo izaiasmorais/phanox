@@ -1,17 +1,17 @@
 import Link from "next/link";
 import { Product, FooterBanner, HeroBanner } from "../components";
 import { client } from "../lib/client";
-import { ProductsProps } from "../types/types";
+import { bannerData, ProductsProps } from "../types/types";
 
 interface HomeProps {
   products: ProductsProps[];
-  bannerData: any;
+  bannerData: bannerData[];
 }
 
 export default function Home({ products, bannerData }: HomeProps) {
   return (
     <>
-      <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
+      <HeroBanner heroBanner={bannerData && bannerData[1]} />
       <div className="products-heading">
         <h2>Best Selling Products</h2>
         <p>Speakers of many variations</p>
