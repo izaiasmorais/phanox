@@ -6,7 +6,7 @@
 
 ## 📃 Sobre o projeto
 
-E-commerce reativo com manuseio de carrinho de compras e adição de produtos. Foi usado Vue no projeto para toda estrutura e json-server para simular uma API.
+E-commerce completo feito em Next. Utiliza Sanity como CMS para listagem de dados, e Stripe API para pagamentos.
 
 ### Funcionalidades
 
