@@ -4,8 +4,6 @@
 
 <p align="center">Um e-commerce completo</p>
 
-https://user-images.githubusercontent.com/53953937/178058539-8f6a30fa-23da-4e13-9d2f-9935cd073c91.mp4
-
 ## 📃 About the project
 
 E-commerce reativo com manuseio de carrinho de compras e adição de produtos. Foi usado Vue no projeto para toda estrutura e json-server para simular uma API.
