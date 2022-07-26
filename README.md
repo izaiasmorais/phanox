@@ -11,8 +11,8 @@ E-commerce completo feito em Next. Utiliza Sanity como CMS para listagem de dado
 ### Funcionalidades
 
 - Listagem de produtos com Sanity.
-- Carrinho de compras reativo completo.
-- Pagamento via Stripe API.
+- Carrinho de compras completo.
+- Pagamentos via Stripe API.
 
 ## 🚀 Tecnologias
 
