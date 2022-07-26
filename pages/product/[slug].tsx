@@ -31,6 +31,7 @@ const ProductDetails = ({ product, products }) => {
             {image?.map((item, i) => {
               return (
                 <img
+                  key={i}
                   src={String(urlFor(item))}
                   className={
                     i === index ? "small-image selected-image" : "small-image"
