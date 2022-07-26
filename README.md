@@ -10,15 +10,17 @@ E-commerce reativo com manuseio de carrinho de compras e adição de produtos. F
 
 ### Funcionalidades
 
-- Listagem, adição, remoção de produtos no carrinho com json-server.
-- Autenticação simples com link de dados.
-- Paginação e pesquisa de produtos com Vue puro.
-- Compra e venda de produtos.
-- Edição de usuário.
+- Listagem de produtos com Sanity.
+- Carrinho de compras reativo completo.
+- Pagamento via Stripe API.
 
 ## 🚀 Tecnologias
 
-
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Stripe](https://stripe.com/en-br)
+- [Sass](https://sass-lang.com/)
+- [Sanity](https://www.sanity.io/)
 
 ## 💻 Cloning project
 
