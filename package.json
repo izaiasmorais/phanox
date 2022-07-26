@@ -1,0 +1,32 @@
+{
+  "name": "phanox",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@sanity/client": "^3.2.0",
+    "@sanity/image-url": "^1.0.1",
+    "@stripe/stripe-js": "^1.25.0",
+    "canvas-confetti": "^1.5.1",
+    "next": "12.2.3",
+    "next-sanity-image": "^3.2.1",
+    "react": "18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.2.0",
+    "react-icons": "^4.3.1",
+    "stripe": "^8.209.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.6.1",
+    "@types/react": "18.0.15",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.20.0",
+    "eslint-config-next": "12.2.3",
+    "typescript": "4.7.4"
+  }
+}
