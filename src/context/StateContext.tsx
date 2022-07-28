@@ -64,6 +64,7 @@ export function StateContextProvider({ children }: StateContextProviderProps) {
           };
       });
 
+      // @ts-ignore
       setCartItems(newCart);
 
       console.log(cartItems);
