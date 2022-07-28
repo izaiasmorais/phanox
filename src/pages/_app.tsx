@@ -4,6 +4,7 @@ import Head from "next/head";
 import { StateContextProvider } from "../context/StateContext";
 
 import "../styles/globals.scss";
+import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,6 +13,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Head>
           <title>Phanox</title>
         </Head>
+
+        <Toaster position="top-center" reverseOrder={false} />
 
         <Component {...pageProps} />
       </Layout>

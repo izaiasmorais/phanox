@@ -20,7 +20,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
 
-  const { qty, incQty, decQty } = useCart();
+  const { qty, incQty, decQty, onAdd } = useCart();
 
   return (
     <div>
@@ -76,7 +76,11 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
             </p>
           </div>
           <div className="buttons">
-            <button type="button" className="add-to-cart">
+            <button
+              type="button"
+              className="add-to-cart"
+              onClick={() => onAdd(product, qty)}
+            >
               Add to cart
             </button>
             <button type="button" className="buy-now">

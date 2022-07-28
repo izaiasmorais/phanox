@@ -1,13 +1,14 @@
 import produce from "immer";
 import { createContext, ReactNode, useContext, useState } from "react";
-import { ProductsProps, onAddProps } from "../types/types";
+import { ProductsProps, CartProductsProps } from "../types/types";
+import toast from "react-hot-toast";
 
 interface StateContextProviderProps {
   children: ReactNode;
 }
 
 interface StateConextProps {
-  cartItems: ProductsProps[];
+  cartItems: CartProductsProps[];
   qty: number;
   totalQty: number;
 
@@ -19,15 +20,15 @@ interface StateConextProps {
 
   totalPrice: number;
 
-  onAdd: ({ product, qty }: onAddProps) => void;
+  onAdd: (product: ProductsProps, quantity: number) => void;
 }
 
 export const StateContext = createContext({} as StateConextProps);
 
 export function StateContextProvider({ children }: StateContextProviderProps) {
   const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItens] = useState<ProductsProps[]>([]);
-  const [totalQty, setTotalQty] = useState(1);
+  const [cartItems, setCartItems] = useState<CartProductsProps[]>([]);
+  const [totalQty, setTotalQty] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [qty, setQty] = useState(1);
 
@@ -43,16 +44,32 @@ export function StateContextProvider({ children }: StateContextProviderProps) {
     setQty((state) => state + 1);
   }
 
-  function onAdd({ product, qty }: onAddProps) {
+  function onAdd(product: ProductsProps, quantity: number) {
     const productAlreadyExist = cartItems.findIndex(
       (cartItem) => cartItem._id === product._id
     );
 
-    const newCart = produce(cartItems, (draft) => {
-      if (productAlreadyExist) {
-        
-      }
-    })
+    setTotalPrice((previous) => previous + quantity * product.price);
+
+    if (productAlreadyExist < 0) {
+      setTotalQty((previous) => previous + 1);
+
+      setCartItems([...cartItems, { ...product, quantity }]);
+    } else {
+      const newCart = cartItems.map((item) => {
+        if (item._id === product._id)
+          return {
+            ...item,
+            quantity: item.quantity + quantity,
+          };
+      });
+
+      setCartItems(newCart);
+
+      console.log(cartItems);
+    }
+
+    toast.success(`${qty} ${product.name} adicionado`);
   }
 
   return (
