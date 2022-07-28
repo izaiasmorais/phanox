@@ -9,6 +9,7 @@ import {
 import { Product } from "../../components";
 import { useState } from "react";
 import { ProductsProps } from "../../types/types";
+import { useCart } from "../../context/StateContext";
 
 interface ProductDetailsProps {
   product: ProductsProps;
@@ -18,6 +19,8 @@ interface ProductDetailsProps {
 const ProductDetails = ({ product, products }: ProductDetailsProps) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
+
+  const { qty, incQty, decQty } = useCart();
 
   return (
     <div>
@@ -63,11 +66,11 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
           <div className="quantity">
             <h3>Quantity:</h3>
             <p className="quantity-desc">
-              <span className="minus">
+              <span className="minus" onClick={() => decQty()}>
                 <AiOutlineMinus />
               </span>
-              <span className="num">1</span>
-              <span className="plus">
+              <span className="num">{qty}</span>
+              <span className="plus" onClick={() => incQty()}>
                 <AiOutlinePlus />
               </span>
             </p>

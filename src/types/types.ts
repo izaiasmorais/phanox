@@ -30,3 +30,8 @@ export type bannerData = {
   _type: string;
   _updatedAt: string;
 };
+
+export type onAddProps = {
+  product: ProductsProps;
+  qty: number;
+};
