@@ -20,7 +20,7 @@ E-commerce moderno feito em Next. Utiliza Sanity como CMS para listagem de dados
 - [TypeScript](https://www.typescriptlang.org/)
 - [Sanity](https://www.sanity.io/)
 - [Stripe](https://stripe.com/en-br)
-- [Styled-components](https://styled-components.com/)
+- [Sass](https://sass-lang.com/)
 
 ## 💻 Cloning project
 
