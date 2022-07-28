@@ -2,11 +2,11 @@
    🛍 Phanox
 </h1>
 
-<p align="center">Um e-commerce completo</p>
+<p align="center">Um e-commerce feito em Next</p>
 
 ## 📃 Sobre o projeto
 
-E-commerce completo feito em Next. Utiliza Sanity como CMS para listagem de dados, e Stripe API para pagamentos.
+E-commerce moderno feito em Next. Utiliza Sanity como CMS para listagem de dados, e Stripe API para pagamentos.
 
 ### Funcionalidades
 
@@ -18,9 +18,9 @@ E-commerce completo feito em Next. Utiliza Sanity como CMS para listagem de dado
 
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Stripe](https://stripe.com/en-br)
-- [Sass](https://sass-lang.com/)
 - [Sanity](https://www.sanity.io/)
+- [Stripe](https://stripe.com/en-br)
+- [Styled-components](https://styled-components.com/)
 
 ## 💻 Cloning project
 
@@ -36,8 +36,3 @@ $ npm i
 $ npm run dev
 
 ```
-
-
-
-
-
