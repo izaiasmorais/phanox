@@ -12,8 +12,13 @@ import { urlFor } from "../lib/client";
 
 const Cart = () => {
   const cartRef = useRef();
-  const { totalPrice, totalQty, cartItems, setShowCart, qty, decQty, incQty } =
-    useCart();
+  const { cartItems, setShowCart, onRemove, changeQuantity } = useCart();
+
+  let sum = 0;
+
+  for (let i = 0; i < cartItems.length; i++) {
+    sum = sum + cartItems[i].price * cartItems[i].quantity;
+  }
 
   return (
     // @ts-ignore
@@ -26,7 +31,7 @@ const Cart = () => {
         >
           <AiOutlineLeft />
           <span className="heading">Seu carrinho</span>
-          <span className="cart-num-items">({totalQty} itens)</span>
+          <span className="cart-num-items">({cartItems.length} itens)</span>
         </button>
 
         {cartItems.length < 1 && (
@@ -47,10 +52,11 @@ const Cart = () => {
 
         <div className="product-container">
           {cartItems.length >= 1 &&
-            cartItems.map((item) => (
-              <div key={item._id} className="product">
+            cartItems.map((item, i) => (
+              <div className="product" key={item._id}>
                 <img
-                  src={String(urlFor(item.image[0]))}
+                  // @ts-ignore
+                  src={urlFor(item?.image[0])}
                   alt={item.name}
                   className="cart-product-image"
                 />
@@ -62,16 +68,26 @@ const Cart = () => {
                   <div className="flex bottom">
                     <div>
                       <p className="quantity-desc">
-                        <span className="minus">
+                        <span
+                          className="minus"
+                          onClick={() => changeQuantity(item._id, "dec")}
+                        >
                           <AiOutlineMinus />
                         </span>
-                        <span className="num">1</span>
-                        <span className="plus">
+                        <span className="num">{item.quantity}</span>
+                        <span
+                          className="plus"
+                          onClick={() => changeQuantity(item._id, "inc")}
+                        >
                           <AiOutlinePlus />
                         </span>
                       </p>
                     </div>
-                    <button type="button" className="remove-item">
+                    <button
+                      type="button"
+                      className="remove-item"
+                      onClick={() => onRemove(i)}
+                    >
                       <TiDeleteOutline />
                     </button>
                   </div>
@@ -83,7 +99,8 @@ const Cart = () => {
           <div className="cart-bottom">
             <div className="total">
               <h3>Subtotal: </h3>
-              <h3>${totalPrice} </h3>
+
+              <h3>$ {sum}</h3>
             </div>
             <div className="btn-container">
               <button type="button" className="btn">

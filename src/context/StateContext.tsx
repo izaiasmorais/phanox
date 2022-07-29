@@ -1,90 +1,96 @@
 import produce from "immer";
 import { createContext, ReactNode, useContext, useState } from "react";
-import { ProductsProps, CartProductsProps } from "../types/types";
+import { ProductsProps } from "../types/types";
 import toast from "react-hot-toast";
+
+export interface CartItems extends ProductsProps {
+  quantity: number;
+}
 
 interface StateContextProviderProps {
   children: ReactNode;
 }
 
 interface StateConextProps {
-  cartItems: CartProductsProps[];
-  qty: number;
-  totalQty: number;
-
-  decQty: () => void;
-  incQty: () => void;
-
+  cartItems: CartItems[];
   showCart: boolean;
   setShowCart: (value: boolean) => void;
-
+  onAdd: (product: CartItems) => void;
+  onRemove: (index: number) => void;
+  changeQuantity: (cartItemId: string, type: "inc" | "dec") => void;
   totalPrice: number;
-
-  onAdd: (product: ProductsProps, quantity: number) => void;
 }
 
 export const StateContext = createContext({} as StateConextProps);
 
 export function StateContextProvider({ children }: StateContextProviderProps) {
   const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItems] = useState<CartProductsProps[]>([]);
-  const [totalQty, setTotalQty] = useState(0);
+  const [cartItems, setCartItems] = useState<CartItems[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [qty, setQty] = useState(1);
 
-  function decQty() {
-    if (qty <= 1) {
-      return;
-    }
-
-    setQty((state) => state - 1);
-  }
-
-  function incQty() {
-    setQty((state) => state + 1);
-  }
-
-  function onAdd(product: ProductsProps, quantity: number) {
-    const productAlreadyExist = cartItems.findIndex(
+  function onAdd(product: CartItems) {
+    const productAlreadyExists = cartItems.findIndex(
       (cartItem) => cartItem._id === product._id
     );
 
-    setTotalPrice((previous) => previous + quantity * product.price);
+    const newCart = produce(cartItems, (draft) => {
+      if (productAlreadyExists < 0) {
+        draft.push(product);
+      } else {
+        draft[productAlreadyExists].quantity += product.quantity;
+      }
+    });
 
-    if (productAlreadyExist < 0) {
-      setTotalQty((previous) => previous + 1);
+    setCartItems(newCart);
+    setTotalPrice((previous) => previous + product.price * product.quantity);
 
-      setCartItems([...cartItems, { ...product, quantity }]);
-    } else {
-      const newCart = cartItems.map((item) => {
-        if (item._id === product._id)
-          return {
-            ...item,
-            quantity: item.quantity + quantity,
-          };
-      });
+    toast.success(`${product.quantity} ${product.name} adicionado`);
+  }
 
-      // @ts-ignore
-      setCartItems(newCart);
+  function onRemove(index: number) {
+    const updatedCart = produce(cartItems, (draft) => {
+      draft.splice(index, 1);
+    });
 
-      console.log(cartItems);
-    }
+    setCartItems(updatedCart);
+    setTotalPrice(
+      (previous) =>
+        previous - cartItems[index].price * cartItems[index].quantity
+    );
+  }
 
-    toast.success(`${qty} ${product.name} adicionado`);
+  function changeQuantity(cartItemId: string, type: "inc" | "dec") {
+    const newCart = produce(cartItems, (draft) => {
+      const productAlreadyExists = cartItems.findIndex(
+        (cartItem) => cartItem._id === cartItemId
+      );
+
+      if (productAlreadyExists >= 0) {
+        const item = draft[productAlreadyExists];
+
+        if (type === "inc") {
+          item.quantity += 1;
+        }
+
+        if (type === "dec" && item.quantity > 1) {
+          item.quantity -= 1;
+        }
+      }
+    });
+
+    setCartItems(newCart);
   }
 
   return (
     <StateContext.Provider
       value={{
         cartItems,
-        qty,
-        decQty,
-        incQty,
         showCart,
         setShowCart,
-        totalQty,
-        totalPrice,
         onAdd,
+        onRemove,
+        totalPrice,
+        changeQuantity,
       }}
     >
       {children}

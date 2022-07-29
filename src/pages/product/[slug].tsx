@@ -6,10 +6,11 @@ import {
   AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
-import { Product } from "../../components";
-import { useState } from "react";
+import { Cart, Product } from "../../components";
+import { useEffect, useState } from "react";
 import { ProductsProps } from "../../types/types";
 import { useCart } from "../../context/StateContext";
+import { useRouter } from "next/router";
 
 interface ProductDetailsProps {
   product: ProductsProps;
@@ -17,10 +18,34 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails = ({ product, products }: ProductDetailsProps) => {
+  const { asPath } = useRouter();
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
+  const { onAdd } = useCart();
+  const [quantity, setQuantity] = useState(1);
 
-  const { qty, incQty, decQty, onAdd } = useCart();
+  useEffect(() => {
+    setQuantity(1);
+  }, [asPath]);
+
+  function handleInc() {
+    setQuantity((state) => state + 1);
+  }
+
+  function handleDec() {
+    if (quantity > 1) {
+      setQuantity((state) => state - 1);
+    }
+  }
+
+  const productToAdd = {
+    ...product,
+    quantity: quantity,
+  };
+
+  function handleAddToCart(product: ProductsProps) {
+    onAdd(productToAdd);
+  }
 
   return (
     <div>
@@ -66,11 +91,11 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
           <div className="quantity">
             <h3>Quantity:</h3>
             <p className="quantity-desc">
-              <span className="minus" onClick={() => decQty()}>
+              <span className="minus" onClick={() => handleDec()}>
                 <AiOutlineMinus />
               </span>
-              <span className="num">{qty}</span>
-              <span className="plus" onClick={() => incQty()}>
+              <span className="num">{quantity}</span>
+              <span className="plus" onClick={() => handleInc()}>
                 <AiOutlinePlus />
               </span>
             </p>
@@ -79,7 +104,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
             <button
               type="button"
               className="add-to-cart"
-              onClick={() => onAdd(product, qty)}
+              onClick={() => handleAddToCart(product)}
             >
               Add to cart
             </button>
