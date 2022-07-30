@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRef } from "react";
+import toast from "react-hot-toast";
 import {
   AiOutlineLeft,
   AiOutlineMinus,
@@ -9,6 +10,7 @@ import {
 import { TiDeleteOutline } from "react-icons/ti";
 import { useCart } from "../context/StateContext";
 import { urlFor } from "../lib/client";
+import getStripe from "../pages/api/getStripe";
 
 const Cart = () => {
   const cartRef = useRef();
@@ -19,6 +21,20 @@ const Cart = () => {
   for (let i = 0; i < cartItems.length; i++) {
     sum = sum + cartItems[i].price * cartItems[i].quantity;
   }
+
+  const handleCheckout = async () => {
+    const stripe = await getStripe();
+
+    const response = await fetch("/api/stripe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cartItems),
+    });
+
+    console.log(response);
+  };
 
   return (
     // @ts-ignore
@@ -103,7 +119,7 @@ const Cart = () => {
               <h3>$ {sum}</h3>
             </div>
             <div className="btn-container">
-              <button type="button" className="btn">
+              <button type="button" className="btn" onClick={handleCheckout}>
                 Finalizar compra
               </button>
             </div>
