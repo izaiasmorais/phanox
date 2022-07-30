@@ -1,6 +1,6 @@
 export type ProductsProps = {
   details: string;
-  image: string[];
+  image: [];
   name: string;
   price: number;
   slug: {

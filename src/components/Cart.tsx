@@ -10,7 +10,7 @@ import {
 import { TiDeleteOutline } from "react-icons/ti";
 import { useCart } from "../context/StateContext";
 import { urlFor } from "../lib/client";
-import getStripe from "../pages/api/getStripe";
+import { getStripe } from "../lib/getStripe";
 
 const Cart = () => {
   const cartRef = useRef();
@@ -22,10 +22,10 @@ const Cart = () => {
     sum = sum + cartItems[i].price * cartItems[i].quantity;
   }
 
-  const handleCheckout = async () => {
+  async function handleCheckout() {
     const stripe = await getStripe();
 
-    const response = await fetch("/api/stripe", {
+    const response = await fetch("/api/subscribe", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,8 +33,12 @@ const Cart = () => {
       body: JSON.stringify(cartItems),
     });
 
-    console.log(response);
-  };
+    const data = await response.json();
+
+    toast.loading("Redirecting...");
+
+    stripe?.redirectToCheckout({ sessionId: data.id });
+  }
 
   return (
     // @ts-ignore

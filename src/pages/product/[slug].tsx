@@ -21,7 +21,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
   const { asPath } = useRouter();
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { onAdd } = useCart();
+  const { onAdd, setShowCart } = useCart();
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -45,6 +45,11 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
 
   function handleAddToCart(product: ProductsProps) {
     onAdd(productToAdd);
+  }
+
+  function handleBuyNow(product: ProductsProps) {
+    onAdd(productToAdd);
+    setShowCart(true);
   }
 
   return (
@@ -108,7 +113,11 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
             >
               Add to cart
             </button>
-            <button type="button" className="buy-now">
+            <button
+              type="button"
+              className="buy-now"
+              onClick={() => handleBuyNow(product)}
+            >
               Buy now
             </button>
           </div>

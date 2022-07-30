@@ -1,21 +1,29 @@
-import Stripe from "stripe";
+import { NextApiRequest, NextApiResponse } from "next";
+import { stripe } from "../../services/stripe";
+import { ProductsProps } from "../../types/types";
 
-const stripe = new Stripe(
-  "sk_test_51LDBd4K6F9MAB56y1tVe3SasbXQ5yE5JiUdHC70l58SPO54c54IW1pcXVsniAHdPvUSyZ0FrHWmkkcJbJdYl4OSx00TF9DMFmj"
-);
+interface ItemProps extends ProductsProps {
+  quantity: number;
+}
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method === "POST") {
-    console.log(req.body.cartItems);
-
     try {
       const session = await stripe.checkout.sessions.create({
         submit_type: "pay",
         mode: "payment",
         payment_method_types: ["card"],
         billing_address_collection: "auto",
-        shipping_options: [{ shipping_rate: "shr_1Kn3IaEnylLNWUqj5rqhg9oV" }],
-        line_items: req.body.map((item) => {
+        shipping_options: [
+          { shipping_rate: "shr_1LRKN8K6F9MAB56y2Q4kDBfi" },
+          { shipping_rate: "shr_1LRKNUK6F9MAB56yts5BRauF" },
+        ],
+
+        line_items: req.body.map((item: ItemProps) => {
+          // @ts-ignore
           const img = item.image[0].asset._ref;
           const newImage = img
             .replace(
@@ -40,13 +48,14 @@ export default async function handler(req, res) {
             quantity: item.quantity,
           };
         }),
+
         success_url: `${req.headers.origin}/success`,
         cancel_url: `${req.headers.origin}/canceled`,
       });
 
       res.status(200).json(session);
     } catch (err) {
-      res.status(err.statusCode || 500).json(err.message);
+      console.log(err);
     }
   } else {
     res.setHeader("Allow", "POST");
