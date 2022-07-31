@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { urlFor } from "../lib/client";
 import { bannerData } from "../types/types";
@@ -17,6 +18,8 @@ const HeroBanner = ({ heroBanner }: HeroBannerProps) => {
           src={String(urlFor(heroBanner.image))}
           alt={heroBanner.product}
           className="hero-banner-image"
+          width={450}
+          height={450}
         />
         <div>
           <Link href={`/product/${heroBanner.product}`}>
