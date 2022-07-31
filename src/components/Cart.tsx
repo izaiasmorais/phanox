@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { MouseEvent, useRef } from "react";
 import toast from "react-hot-toast";
 import {
   AiOutlineLeft,
@@ -40,9 +41,19 @@ const Cart = () => {
     stripe?.redirectToCheckout({ sessionId: data.id });
   }
 
+  function outsideClick(event: MouseEvent) {
+    if (event.target === event.currentTarget) {
+      setShowCart(false);
+    }
+  }
+
   return (
-    // @ts-ignore
-    <div className="cart-wrapper" ref={cartRef}>
+    <div
+      className="cart-wrapper"
+      // @ts-ignore
+      ref={cartRef}
+      onClick={(e) => outsideClick(e)}
+    >
       <div className="cart-container">
         <button
           type="button"
@@ -56,7 +67,7 @@ const Cart = () => {
 
         {cartItems.length < 1 && (
           <div className="empty-cart">
-            <AiOutlineShopping size={150} />
+            <Image src="/assets/shopping-bag.webp" width={250} height={250} />
             <h3>Seu carrinho está vazio</h3>
             <Link href="/" passHref>
               <button

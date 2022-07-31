@@ -12,8 +12,10 @@ interface StateContextProviderProps {
 }
 
 interface StateConextProps {
-  cartItems: CartItems[];
   showCart: boolean;
+  cartItems: CartItems[];
+  setCartItems: (value: CartItems[]) => void;
+  setTotalPrice: (value: number) => void;
   setShowCart: (value: boolean) => void;
   onAdd: (product: CartItems) => void;
   onRemove: (index: number) => void;
@@ -85,11 +87,13 @@ export function StateContextProvider({ children }: StateContextProviderProps) {
     <StateContext.Provider
       value={{
         cartItems,
+        setCartItems,
         showCart,
         setShowCart,
         onAdd,
         onRemove,
         totalPrice,
+        setTotalPrice,
         changeQuantity,
       }}
     >

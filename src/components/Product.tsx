@@ -13,8 +13,6 @@ const Product = ({ product }: ProductProps) => {
         <div className="product-card">
           <img
             src={String(urlFor(product.image && product.image[0]))}
-            width={250}
-            height={250}
             className="product-image"
             alt={product.name}
           />
