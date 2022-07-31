@@ -1,21 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent, useRef } from "react";
+import { MouseEvent, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import {
-  AiOutlineLeft,
-  AiOutlineMinus,
-  AiOutlinePlus,
-  AiOutlineShopping,
-} from "react-icons/ai";
+import { AiOutlineLeft, AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 import { useCart } from "../context/StateContext";
 import { urlFor } from "../lib/client";
 import { getStripe } from "../lib/getStripe";
+import { BeatLoader } from "react-spinners";
 
 const Cart = () => {
   const cartRef = useRef();
   const { cartItems, setShowCart, onRemove, changeQuantity } = useCart();
+  const [loading, setLoading] = useState(false);
 
   let sum = 0;
 
@@ -24,6 +21,8 @@ const Cart = () => {
   }
 
   async function handleCheckout() {
+    setLoading(true);
+
     const stripe = await getStripe();
 
     const response = await fetch("/api/subscribe", {
@@ -135,7 +134,11 @@ const Cart = () => {
             </div>
             <div className="btn-container">
               <button type="button" className="btn" onClick={handleCheckout}>
-                Finalizar compra
+                {loading ? (
+                  <BeatLoader loading={loading} size={10} color="#fff" />
+                ) : (
+                  "Finalizar compra"
+                )}
               </button>
             </div>
           </div>
