@@ -8,6 +8,8 @@
 
 E-commerce moderno feito em Next. Utiliza Sanity como CMS para listagem de dados, e Stripe API para pagamentos.
 
+https://user-images.githubusercontent.com/53953937/183287438-5cefdcdc-891c-443e-8603-bb4c78591a98.mp4
+
 ### Funcionalidades
 
 - Listagem de produtos com Sanity.
