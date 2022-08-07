@@ -7,7 +7,7 @@ import {
 const Footer = () => {
   return (
     <div className="footer-container">
-      <p>2022 - Phanox - All Rights Reserverd</p>
+      <p>2022 © Phanox - All Rights Reserved</p>
       <p className="icons">
         <a href="https://github.com/IzaiasMorais">
           <AiFillGithub />

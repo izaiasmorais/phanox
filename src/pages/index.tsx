@@ -13,8 +13,8 @@ export default function Home({ products, bannerData }: HomeProps) {
     <>
       <HeroBanner heroBanner={bannerData && bannerData[1]} />
       <div className="products-heading">
-        <h2>Produtos mais vendidos</h2>
-        <p>Alto-falantes de muitas variações</p>
+        <h2>Best seller products</h2>
+        <p>Speakers of many variations</p>
       </div>
       <div className="products-container">
         {products.map((product) => {

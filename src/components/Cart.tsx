@@ -60,21 +60,21 @@ const Cart = () => {
           onClick={() => setShowCart(false)}
         >
           <AiOutlineLeft />
-          <span className="heading">Seu carrinho</span>
-          <span className="cart-num-items">({cartItems.length} itens)</span>
+          <span className="heading">Your cart</span>
+          <span className="cart-num-items">({cartItems.length} items)</span>
         </button>
 
         {cartItems.length < 1 && (
           <div className="empty-cart">
             <Image src="/assets/shopping-bag.webp" width={250} height={250} />
-            <h3>Seu carrinho está vazio</h3>
+            <h3>Your shopping cart is empty</h3>
             <Link href="/" passHref>
               <button
                 type="button"
                 onClick={() => setShowCart(false)}
                 className="btn"
               >
-                Continuar comprando
+                Continue shopping
               </button>
             </Link>
           </div>

@@ -20,17 +20,17 @@ export default function Success() {
         <p className="icon">
           <BsBagCheckFill />
         </p>
-        <h2>Obrigado pela sua compra</h2>
-        <p className="email-msg">Verifique seu email para acessar o recibo.</p>
+        <h2>Thank you for your purchase</h2>
+        <p className="email-msg">Check your email to access the receipt.</p>
         <p className="description">
-          Se tiver alguma dúvida, por favor envie um email para
+          If you have any questions, please send an email to
           <a href="mailto:izaiaslima356@gmail.com" className="email">
             izaiaslima356@gmail.com
           </a>
         </p>
         <Link href="/">
           <button type="button" className="btn">
-            Continuar comprando
+            Continue shopping
           </button>
         </Link>
       </div>
