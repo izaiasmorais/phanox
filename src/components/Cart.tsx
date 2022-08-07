@@ -137,7 +137,7 @@ const Cart = () => {
                 {loading ? (
                   <BeatLoader loading={loading} size={10} color="#fff" />
                 ) : (
-                  "Finalizar compra"
+                  "Pay with Stripe"
                 )}
               </button>
             </div>
