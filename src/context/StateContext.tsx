@@ -46,7 +46,7 @@ export function StateContextProvider({ children }: StateContextProviderProps) {
     setCartItems(newCart);
     setTotalPrice((previous) => previous + product.price * product.quantity);
 
-    toast.success(`${product.quantity} ${product.name} adicionado`);
+    toast.success(`${product.quantity} ${product.name} added to cart`);
   }
 
   function onRemove(index: number) {
