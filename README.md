@@ -24,17 +24,17 @@ https://user-images.githubusercontent.com/53953937/183287438-5cefdcdc-891c-443e-
 - [Stripe](https://stripe.com/en-br)
 - [Sass](https://sass-lang.com/)
 
-## 💻 Cloning project
+## 💻 Clonando projeto
 
 ```bash
 $ git clone https://github.com/IzaiasMorais/phanox.git && cd phanox
 ```
 
 ```bash
-# Install the dependecies
+# Instalando dependências
 $ npm i
 
-# Run the project
+# Rodando o projeto
 $ npm run dev
 
 ```
