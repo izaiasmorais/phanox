@@ -25,7 +25,7 @@ https://user-images.githubusercontent.com/53953937/183287438-5cefdcdc-891c-443e-
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Sanity](https://www.sanity.io/)
-- [Stripe](https://stripe.com/en-br)
+- [Stripe API](https://stripe.com/docs/api)
 - [Sass](https://sass-lang.com/)
 
 ## 💻 Clonando projeto
